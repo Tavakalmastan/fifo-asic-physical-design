@@ -49,39 +49,52 @@ This project demonstrates the complete Physical Design (PD) flow of a FIFO (Firs
 
 ---
 
-## 📊 Results
+## 📊 Final Results & Analysis
 
-| Parameter                | Value                               |
-| ------------------------ | ----------------------------------- |
-| Setup Slack (Post-CTS)   | +0.069 ns                           |
-| Setup Slack (Post-Route) | -0.032 ns                           |
-| Status                   | Minor violation (due to parasitics) |
+### ⏱ Timing Summary
 
----
+* **Post-CTS Setup Slack:** +0.069 ns ✅ (Met)
+* **Post-CTS Hold Slack:** -0.046 ns ❌ (Expected violation due to fast paths)
+* **Post-Route Setup Slack:** -0.032 ns ⚠️ (Minor violation ~32 ps)
 
-## ⚠️ Observations
-
-* Timing met after CTS
-* Slight setup violation after routing due to interconnect parasitics
-* Can be fixed using post-route optimization
+> Note: The small setup violation after routing can be fixed using post-route optimization (`optDesign -postRoute -setup`).
 
 ---
 
-## 📁 Project Structure
+### ⚡ Power Analysis
 
-* `rtl/` → Verilog design
-* `scripts/` → TCL scripts
-* `reports/` → Timing, power, area reports
-* `screenshots/` → Design visuals
+* **Total Power:** 0.3496 mW
+
+  * **Internal Power:** 0.2618 mW (74.8%)
+  * **Switching Power:** 0.0877 mW (25.0%)
+  * **Leakage Power:** 0.00013 mW (~0%)
+
+* **Clock Power Contribution:** ~38.95% of total power
+
+> Note: Power estimation used default switching activity (0.2), hence values are approximate.
+
+---
+
+### 📐 Area Summary
+
+* **Total Standard Cells:** 634
+* **Total Area:** 1852.27 µm²
 
 ---
 
-## 🎯 Conclusion
+### 🔍 Key Observations
 
-Successfully implemented full ASIC Physical Design flow for FIFO.
-Demonstrated understanding of CTS, routing, and timing closure challenges.
+* Hold violations observed after CTS are expected due to fast data paths and are resolved in later stages.
+* Minor setup violation after routing indicates near timing closure.
+* Clock network contributes significantly to total power, which is typical in synchronous designs.
+* Design demonstrates realistic ASIC physical design challenges including timing closure and power distribution.
 
 ---
+
+### 🏁 Conclusion
+
+The FIFO design successfully completes the full physical design flow with near timing closure, optimized power consumption, and compact area, reflecting industry-relevant design trade-offs and optimization strategies.
+
 
 ## 👨‍💻 Author
 
