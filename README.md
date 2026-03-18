@@ -1,27 +1,54 @@
-# FIFO ASIC Physical Design using Cadence Innovus
+# 🚀 FIFO ASIC Physical Design using Cadence Innovus
 
 ## 📌 Overview
 
-This project demonstrates the complete Physical Design (PD) flow of a FIFO (First-In First-Out) design using Cadence Innovus.
+This project demonstrates the complete **ASIC Physical Design (PD) flow** of a synchronous FIFO using **Cadence Innovus**.
+It covers all stages from netlist import to final routing and timing closure analysis.
+
+The goal is to understand real-world PD challenges such as **clock tree design, timing closure, power optimization, and routing effects**.
 
 ---
 
-## 🔧 Tools Used
+## 🔧 Tools & Technologies
 
-* Cadence Innovus
-* Verilog HDL
-* TCL scripting
+* **Cadence Innovus** – Physical Design Implementation
+* **Verilog HDL** – RTL Design
+* **TCL Scripting** – Flow automation
+* **MMMC (Multi-Mode Multi-Corner)** – Timing analysis
 
 ---
 
 ## 🚀 Physical Design Flow
 
-1. Floorplanning
-2. Power Planning
-3. Placement
-4. Clock Tree Synthesis (CTS)
-5. Routing
-6. Timing Analysis
+1. **Floorplanning**
+
+   * Core utilization and aspect ratio setup
+   * IO placement and row generation
+
+2. **Power Planning**
+
+   * Power rings and stripes creation
+   * VDD/VSS connectivity
+
+3. **Placement**
+
+   * Standard cell placement
+   * Optimization for congestion and timing
+
+4. **Clock Tree Synthesis (CTS)**
+
+   * Clock buffering and balancing
+   * Skew and latency control
+
+5. **Routing**
+
+   * Global and detailed routing
+   * RC parasitic extraction
+
+6. **Timing & Power Analysis**
+
+   * Setup and Hold checks
+   * Power estimation and breakdown
 
 ---
 
@@ -45,7 +72,7 @@ This project demonstrates the complete Physical Design (PD) flow of a FIFO (Firs
 
 ### Final Layout
 
-![Final](screenshots/final_layout.png)
+![Final Layout](screenshots/final_layout.png)
 
 ---
 
@@ -54,10 +81,10 @@ This project demonstrates the complete Physical Design (PD) flow of a FIFO (Firs
 ### ⏱ Timing Summary
 
 * **Post-CTS Setup Slack:** +0.069 ns ✅ (Met)
-* **Post-CTS Hold Slack:** -0.046 ns ❌ (Expected violation due to fast paths)
+* **Post-CTS Hold Slack:** -0.046 ns ❌ (Expected violation)
 * **Post-Route Setup Slack:** -0.032 ns ⚠️ (Minor violation ~32 ps)
 
-> Note: The small setup violation after routing can be fixed using post-route optimization (`optDesign -postRoute -setup`).
+> The small setup violation after routing is due to interconnect parasitics and can be fixed using post-route optimization.
 
 ---
 
@@ -65,37 +92,66 @@ This project demonstrates the complete Physical Design (PD) flow of a FIFO (Firs
 
 * **Total Power:** 0.3496 mW
 
-  * **Internal Power:** 0.2618 mW (74.8%)
-  * **Switching Power:** 0.0877 mW (25.0%)
-  * **Leakage Power:** 0.00013 mW (~0%)
+  * Internal: 74.8%
+  * Switching: 25.0%
+  * Leakage: ~0%
 
-* **Clock Power Contribution:** ~38.95% of total power
+* **Clock Network Power:** ~38.95%
 
-> Note: Power estimation used default switching activity (0.2), hence values are approximate.
+> Clock network dominates power consumption, which is typical in synchronous digital designs.
 
 ---
 
 ### 📐 Area Summary
 
-* **Total Standard Cells:** 634
+* **Total Cells:** 634
 * **Total Area:** 1852.27 µm²
 
 ---
 
-### 🔍 Key Observations
+## 🔍 Key Insights
 
-* Hold violations observed after CTS are expected due to fast data paths and are resolved in later stages.
-* Minor setup violation after routing indicates near timing closure.
-* Clock network contributes significantly to total power, which is typical in synchronous designs.
-* Design demonstrates realistic ASIC physical design challenges including timing closure and power distribution.
+* Hold violations after CTS are **expected** due to fast data paths
+* Routing introduces **parasitic delays**, impacting setup timing
+* Clock network consumes a **significant portion of power**
+* Design demonstrates **real ASIC challenges like timing closure and optimization**
 
 ---
 
-### 🏁 Conclusion
+## 📁 Project Structure
 
-The FIFO design successfully completes the full physical design flow with near timing closure, optimized power consumption, and compact area, reflecting industry-relevant design trade-offs and optimization strategies.
+```bash
+fifo-asic-physical-design/
+│── rtl/            # Verilog design
+│── scripts/        # TCL scripts for PD flow
+│── inputs/         # Netlist, constraints
+│── outputs/        # Generated design files
+│── reports/        # Timing, power, area reports
+│── screenshots/    # Design snapshots
+```
 
+---
+
+## 🎯 Conclusion
+
+Successfully implemented a complete **ASIC Physical Design flow** for a FIFO design.
+The project highlights real-world PD challenges such as:
+
+* Timing closure (setup & hold)
+* Clock tree optimization
+* Power distribution
+* Routing impact on performance
+
+This project reflects **industry-level PD understanding** and practical tool experience.
+
+---
 
 ## 👨‍💻 Author
 
-Tavakalmastan
+**Tavakalmastan**
+
+---
+
+## ⭐ If you found this useful
+
+Give this repo a ⭐ and connect with me!
